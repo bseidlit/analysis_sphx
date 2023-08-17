@@ -1,0 +1,35 @@
+\documentclass[UKenglish]{beamer}
+
+\usepackage{pgffor}
+\setbeamersize{text margin left=0pt, text margin right=0pt} %new code
+
+\begin{document}
+
+\makeatletter
+\newlength\beamerleftmargin
+\setlength\beamerleftmargin{\Gm@lmargin}
+\makeatother
+
+\begin{frame}{}
+
+}
+\end{frame}
+
+\newcommand{\p}{../plots/}
+
+\foreach \n in {21518,21520}{
+\begin{frame}{}
+
+\centering{
+\includegraphics[width=0.35\textwidth]{\p\n.pdf}
+\includegraphics[width=0.35\textwidth]{\ph\n.pdf}
+
+
+%\includegraphics[width=0.9\textwidth]{status_mod\n.pdf}
+\hspace{0.3\textwidth}
+
+}
+\end{frame}
+}
+
+\end{document}
