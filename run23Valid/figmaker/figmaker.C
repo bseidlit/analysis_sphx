@@ -193,7 +193,7 @@ void figmaker(){
     myText(0.22, 0.9, 1, "#it{#bf{sPHENIX}} Internal");
     myText(0.22, 0.85, 1, Form("run %d", run));
     
-    c9->SaveAs(Form("../plots/ihcal_proj_%d.pdf",run));
+    c11->SaveAs(Form("../plots/ihcal_proj_%d.pdf",run));
   }
 
 
