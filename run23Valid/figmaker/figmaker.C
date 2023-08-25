@@ -33,7 +33,7 @@ void figmaker(){
 
     int run = runList[ir];
 
-    TFile* fin = new TFile(Form("../output/%d.root",run));
+    TFile* fin = new TFile(Form("output/%d.root",run));
 
     TH2F* h_emcal_mbd_correlation  = (TH2F*) fin->Get("h_emcal_mbd_correlation" );
     TH2F* h_ihcal_mbd_correlation  = (TH2F*) fin->Get("h_ihcal_mbd_correlation" );
@@ -99,8 +99,8 @@ void figmaker(){
 
     TCanvas* c6 = new TCanvas("c6", "c6", 600, 600);
     h_cemc_etaphi           ->Draw("COLZ");
-    h_cemc_etaphi           ->SetXTitle("#it{#eta}_{i}");
-    h_cemc_etaphi           ->SetYTitle("ir{#phi}_{i}");
+    h_cemc_etaphi           ->SetXTitle("#it{#eta}_{i} EMCal");
+    h_cemc_etaphi           ->SetYTitle("it{#phi}_{i} EMCal");
     myText(0.22, 0.9, 1, "#it{#bf{sPHENIX}} Internal");
     myText(0.22, 0.85, 1, Form("run %d", run));
     gPad->SetRightMargin(0.15);
@@ -110,8 +110,8 @@ void figmaker(){
 
     TCanvas* c7 = new TCanvas("c7", "c7", 600, 600);
     h_ihcal_etaphi          ->Draw("COLZ");
-    h_ihcal_etaphi          ->SetXTitle("#it{#eta}_{i}");
-    h_ihcal_etaphi          ->SetYTitle("#it{#phi}_{i}");
+    h_ihcal_etaphi          ->SetXTitle("#it{#eta}_{i} iHcal");
+    h_ihcal_etaphi          ->SetYTitle("#it{#phi}_{i} iHcal");
     myText(0.22, 0.9, 1, "#it{#bf{sPHENIX}} Internal");
     myText(0.22, 0.85, 1, Form("run %d", run));
     gPad->SetRightMargin(0.15);
@@ -121,8 +121,8 @@ void figmaker(){
 
     TCanvas* c8 = new TCanvas("c8", "c8", 600, 600);
     h_ohcal_etaphi          ->Draw("COLZ");
-    h_ohcal_etaphi          ->SetXTitle("#it{#eta}_{i}");
-    h_ohcal_etaphi          ->SetYTitle("#it{#eta}_{i}");
+    h_ohcal_etaphi          ->SetXTitle("#it{#eta}_{i} oHcal");
+    h_ohcal_etaphi          ->SetYTitle("#it{#phi}_{i} oHcal");
     myText(0.22, 0.9, 1, "#it{#bf{sPHENIX}} Internal");
     myText(0.22, 0.85, 1, Form("run %d", run));
     gPad->SetRightMargin(0.15);
