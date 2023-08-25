@@ -2,6 +2,29 @@
 #include "/sphenix/u/bseidlitz/plotstyle/AtlasUtils.C"
 
 
+TH1F* proj(TH2F* h2){
+
+  int x = h2->GetXaxis()->GetNbins();
+  int y = h2->GetYaxis()->GetNbins();
+  TH1F* h = (TH1F*) h2->ProjectionX("temp");
+  h->Reset();
+  for (int ix=1; ix<x+1; ix++){
+    float sum = 0;
+    float cc = 0;
+    for(int iy=1; iy<y+1; iy++){
+      float bc = h2->GetBinContent(ix,iy);
+      if (bc==0) cc+=1;
+      sum += bc;
+    }
+    if (cc==y) continue;
+    float sum_cor = sum*y/(y-cc);
+    h->SetBinContent(ix,sum_cor);
+  }
+      
+  return h;
+}
+
+
 
 void figmaker(){
 
@@ -51,6 +74,7 @@ void figmaker(){
     myText(0.22, 0.9, 1, "#it{#bf{sPHENIX}} Internal");
     myText(0.22, 0.85, 1, Form("run %d", run));
     gPad->SetRightMargin(0.15);
+    gPad->SetLogz();
 
     c1->SaveAs(Form("../plots/emcal_mbd_correlation_%d.pdf",run));
 
@@ -62,6 +86,7 @@ void figmaker(){
     myText(0.22, 0.9, 1, "#it{#bf{sPHENIX}} Internal");
     myText(0.22, 0.85, 1, Form("run %d", run));
     gPad->SetRightMargin(0.15);
+    gPad->SetLogz();
 
     c2->SaveAs(Form("../plots/ihcal_mbd_correlation_%d.pdf",run));
 
@@ -72,6 +97,7 @@ void figmaker(){
     myText(0.22, 0.9, 1, "#it{#bf{sPHENIX}} Internal");
     myText(0.22, 0.85, 1, Form("run %d", run));
     gPad->SetRightMargin(0.15);
+    gPad->SetLogz();
 
     c3->SaveAs(Form("../plots/ohcal_mbd_correlation_%d.pdf",run));
 
@@ -83,6 +109,7 @@ void figmaker(){
     myText(0.22, 0.9, 1, "#it{#bf{sPHENIX}} Internal");
     myText(0.22, 0.85, 1, Form("run %d", run));
     gPad->SetRightMargin(0.15);
+    gPad->SetLogz();
 
     c3->SaveAs(Form("../plots/emcal_hcal_correlation_%d.pdf",run));
 
@@ -108,6 +135,8 @@ void figmaker(){
     c6->SaveAs(Form("../plots/cemc_etaphi_%d.pdf",run));
 
 
+
+
     TCanvas* c7 = new TCanvas("c7", "c7", 600, 600);
     h_ihcal_etaphi          ->Draw("COLZ");
     h_ihcal_etaphi          ->SetXTitle("#it{#eta}_{i} iHcal");
@@ -129,6 +158,42 @@ void figmaker(){
 
     c8->SaveAs(Form("../plots/ohcal_etaphi_%d.pdf",run));
 
+
+    TH1F* h_emcal_proj = (TH1F*) proj(h_cemc_etaphi)->Clone("h_emcal_proj");
+
+    TCanvas* c9 = new TCanvas("c9", "c9", 600, 300);
+    h_emcal_proj->Draw("hist");
+    h_emcal_proj->SetYTitle("N^{twr}(E_{T} > 1 GeV)");
+
+    myText(0.22, 0.9, 1, "#it{#bf{sPHENIX}} Internal");
+    myText(0.22, 0.85, 1, Form("run %d", run));
+    
+    c9->SaveAs(Form("../plots/cemc_proj_%d.pdf",run));
+
+
+    TH1F* h_ohcal_proj = (TH1F*) proj(h_ohcal_etaphi)->Clone("h_ohcal_proj");
+
+    TCanvas* c10 = new TCanvas("c10", "c10", 600, 300);
+    h_ohcal_proj->Draw("hist");
+    h_ohcal_proj->SetYTitle("N^{twr}(E_{T} > 1 GeV)");
+     h_ohcal_proj->GetYaxis()->SetRangeUser(0, h_ohcal_proj->GetMaximum()*1.05);
+
+    myText(0.22, 0.9, 1, "#it{#bf{sPHENIX}} Internal");
+    myText(0.22, 0.85, 1, Form("run %d", run));
+    
+    c10->SaveAs(Form("../plots/ohcal_proj_%d.pdf",run));
+
+
+    TH1F* h_ihcal_proj = (TH1F*) proj(h_ihcal_etaphi)->Clone("h_ihcal_proj");
+
+    TCanvas* c11 = new TCanvas("c11", "c10", 600, 300);
+    h_ihcal_proj->Draw("hist");
+    h_ihcal_proj->SetYTitle("N^{twr}(E_{T} > 1 GeV)");
+
+    myText(0.22, 0.9, 1, "#it{#bf{sPHENIX}} Internal");
+    myText(0.22, 0.85, 1, Form("run %d", run));
+    
+    c9->SaveAs(Form("../plots/ihcal_proj_%d.pdf",run));
   }
 
 
