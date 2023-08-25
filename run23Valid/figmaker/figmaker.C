@@ -33,7 +33,7 @@ void figmaker(){
 
     int run = runList[ir];
 
-    TFile* fin = new TFile("../output/21518.root");
+    TFile* fin = new TFile(Form("../output/%d.root",run));
 
     TH2F* h_emcal_mbd_correlation  = (TH2F*) fin->Get("h_emcal_mbd_correlation" );
     TH2F* h_ihcal_mbd_correlation  = (TH2F*) fin->Get("h_ihcal_mbd_correlation" );
